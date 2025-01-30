@@ -1,12 +1,15 @@
+import { useDispatch } from "react-redux";
+import { deleteContact } from "../../redux/contactsSice";
 import s from "./Contact.module.css";
 import { FaUser, FaPhoneAlt } from "react-icons/fa";
 
-export default function Contact({
-  contactName,
-  contactNumber,
-  onDeleteContact,
-  id,
-}) {
+export default function Contact({ contactName, contactNumber, id }) {
+  const dirpath = useDispatch();
+
+  const handleDeleteContact = (id) => {
+    dirpath(deleteContact(id));
+  };
+
   return (
     <li className={s.containerContact}>
       <div className={s.contactInfo}>
@@ -24,7 +27,7 @@ export default function Contact({
           <p className={s.title}>{contactNumber}</p>
         </div>
       </div>
-      <button className={s.btn} onClick={() => onDeleteContact(id)}>
+      <button className={s.btn} onClick={() => handleDeleteContact(id)}>
         Delete
       </button>
     </li>
